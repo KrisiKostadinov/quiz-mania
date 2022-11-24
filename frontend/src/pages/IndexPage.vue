@@ -1,17 +1,19 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+  <q-page padding>
+    <h1 class="text-h5">Тестове</h1>
+    <q-separator class="q-my-md" />
+    <list-all />
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import ListAll from "src/components/quiz/quizzes/list/ListAll.vue";
 
 export default defineComponent({
-  name: 'IndexPage'
-})
+  name: "IndexPage",
+  components: {
+    "list-all": ListAll,
+  },
+});
 </script>
