@@ -1,12 +1,12 @@
 <template>
-  <div class="row q-col-gutter-md" v-if="true">
-    <div
+  <div class="row q-col-gutter-md" v-if="store.items.length">
+    <q-list
       class="col-12 col-sm-6 col-md-4 col-lg-3"
-      v-for="(c, index) in CATEGORIES"
+      v-for="(c, index) in props.store.items"
       :key="index"
     >
-      <list-view-category :category="c" />
-    </div>
+      <list-view-category :store="props.store" :category="c" />
+    </q-list>
   </div>
   <transition
     v-else-if="loading"
@@ -25,36 +25,16 @@
 import { defineComponent } from "vue-demi";
 import ListViewCategory from "src/components/category/categories/list/ListViewCategory.vue";
 
-const CATEGORIES = [
-  {
-    id: 1,
-    name: "Взаимоотношения",
-    slug: "vzaimootnoshenia",
-  },
-  {
-    id: 2,
-    name: "Взаимоотношения",
-    slug: "vzaimootnoshenia",
-  },
-  {
-    id: 3,
-    name: "Взаимоотношения",
-    slug: "vzaimootnoshenia",
-  },
-  {
-    id: 4,
-    name: "Взаимоотношения",
-    slug: "vzaimootnoshenia",
-  },
-];
-
 export default defineComponent({
   name: "ListAllCategories",
+  props: {
+    store: Object,
+  },
   components: {
     "list-view-category": ListViewCategory,
   },
-  setup() {
-    return { CATEGORIES };
+  setup(props) {
+    return { props };
   },
 });
 </script>

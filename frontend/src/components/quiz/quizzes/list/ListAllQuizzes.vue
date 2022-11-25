@@ -1,11 +1,11 @@
 <template>
-  <div class="row q-col-gutter-md" v-if="true">
+  <div class="row q-col-gutter-md" v-if="props.store.items.length">
     <div
       class="col-12 col-sm-6 col-md-4 col-lg-3"
-      v-for="index in 10"
+      v-for="(q, index) in props.store.items"
       :key="index"
     >
-      <list-view-quiz />
+      <list-view-quiz :store="props.store" :quiz="q" />
     </div>
   </div>
   <transition
@@ -28,6 +28,11 @@ export default defineComponent({
   components: {
     "list-view-quiz": ListAllQuiz,
   },
-  setup() {},
+  props: {
+    store: Object,
+  },
+  setup(props) {
+    return { props };
+  },
 });
 </script>

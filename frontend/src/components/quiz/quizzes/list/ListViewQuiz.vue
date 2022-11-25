@@ -1,13 +1,14 @@
 <template>
   <q-card>
     <q-card-section>
-      <div class="text-h6">Държави и столици</div>
-      <div class="text-subtitle2">by John Doe</div>
+      <div class="text-h6">{{ quiz.title }}</div>
+      <div class="text-subtitle2">
+        От: {{ quiz.user?.name || "Kristian Kostadinov" }}
+      </div>
     </q-card-section>
     <q-card-section class="q-pt-none">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam enim quasi
-      ipsa non quo aut magnam provident rem, inventore dolor perferendis veniam
-      impedit, nihil beatae quis aliquam suscipit minus adipisci?
+      {{ quiz.description.substring(0, 100) }}
+      {{ quiz.description.length > 100 ? "..." : "" }}
     </q-card-section>
     <q-separator class="q-my-sm" />
     <q-card-actions>
@@ -19,7 +20,7 @@
           icon="edit"
           no-caps
           flat
-          @click="$router.push('quiz/10')"
+          @click="$router.push(`quiz/${quiz.slug}`)"
         />
       </q-item-section>
       <q-item-section side>
@@ -56,9 +57,13 @@ import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "ListView",
-  setup() {
+  props: {
+    store: Object,
+    quiz: Object,
+  },
+  setup(props) {
     const $router = useRouter();
-    return { $router };
+    return { $router, props };
   },
 });
 </script>
