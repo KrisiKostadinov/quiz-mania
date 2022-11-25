@@ -9,6 +9,9 @@ import axios from 'axios'
 // for each client)
 const api = axios.create({ baseURL: process.env.BASE_URL })
 
+if (localStorage.getItem("token"))
+  api.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
+
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 

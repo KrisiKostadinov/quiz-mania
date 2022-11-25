@@ -15,6 +15,10 @@ body * {
   }
 }
 
+.text-caption {
+  font-size: small;
+}
+
 h1,
 h2,
 h3,
@@ -68,5 +72,16 @@ a {
   }
   @media (max-width: $tablet) {
     padding: 1.2rem;
+  }
+}
+
+.medium-dialog {
+  width: 50%;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+  @media (max-width: $tablet) {
+    width: 80%;
   }
 }

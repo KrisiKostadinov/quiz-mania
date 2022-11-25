@@ -4,6 +4,10 @@ import { Notify, Dialog } from 'quasar';
 export const useEnvStore = defineStore('env', {
   state: () => ({
     loading: false,
+    dialogs: {
+      login: false,
+      register: false,
+    }
   }),
   getters: {},
   actions: {
