@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from "vue-demi";
 import { useRoute } from "vue-router";
 import QuizDetailsView from "src/components/quiz/quizzes/details/QuizDetailsView.vue";
 

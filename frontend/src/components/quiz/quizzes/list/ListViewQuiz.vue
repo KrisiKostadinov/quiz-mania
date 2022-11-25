@@ -19,7 +19,7 @@
           icon="edit"
           no-caps
           flat
-          @click="$router.push('10')"
+          @click="$router.push('quiz/10')"
         />
       </q-item-section>
       <q-item-section side>

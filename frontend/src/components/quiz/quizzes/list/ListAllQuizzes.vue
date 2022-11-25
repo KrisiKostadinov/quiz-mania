@@ -5,7 +5,7 @@
       v-for="index in 10"
       :key="index"
     >
-      <list-view />
+      <list-view-quiz />
     </div>
   </div>
   <transition
@@ -21,12 +21,12 @@
 
 <script>
 import { defineComponent } from "vue";
-import ListView from "src/components/quiz/quizzes/list/ListView.vue";
+import ListAllQuiz from "src/components/quiz/quizzes/list/ListViewQuiz.vue";
 
 export default defineComponent({
-  name: "ListAll",
+  name: "ListAllQuizzes",
   components: {
-    "list-view": ListView,
+    "list-view-quiz": ListAllQuiz,
   },
   setup() {},
 });

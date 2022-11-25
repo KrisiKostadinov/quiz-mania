@@ -39,6 +39,11 @@ const NAV_LINKS = [
     icon: "quiz",
   },
   {
+    name: "Категории",
+    path: "/categories",
+    icon: "category",
+  },
+  {
     name: "Помощ",
     path: "/help",
     icon: "help",
