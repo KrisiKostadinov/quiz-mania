@@ -11,7 +11,16 @@
                 <q-icon name="person" />
               </template>
             </q-input>
-            <q-input label="Имейл" v-model="user.credentials.email" filled>
+            <q-input
+              label="Имейл"
+              v-model="user.credentials.email"
+              filled
+              lazy-rules
+              :rules="[(val) => env.checkMail(val)]"
+            >
+              <template v-slot:error>
+                <div class="text-caption">Въведете валиден имейл адрес.</div>
+              </template>
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>

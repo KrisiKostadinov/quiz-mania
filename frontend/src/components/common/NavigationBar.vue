@@ -63,6 +63,11 @@ const NAV_LINKS = [
     icon: "category",
   },
   {
+    name: "Турнири",
+    path: "/tours",
+    icon: "tour",
+  },
+  {
     name: "Помощ",
     path: "/help",
     icon: "help",

@@ -15,7 +15,8 @@ body * {
   }
 }
 
-.text-caption {
+.text-caption,
+small {
   font-size: small;
 }
 
@@ -84,4 +85,8 @@ a {
   @media (max-width: $tablet) {
     width: 80%;
   }
+}
+
+.rounded {
+  border-radius: 50%;
 }

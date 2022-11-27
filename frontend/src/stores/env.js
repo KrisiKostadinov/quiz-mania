@@ -7,6 +7,7 @@ export const useEnvStore = defineStore('env', {
     dialogs: {
       login: false,
       register: false,
+      forgotPassword: false,
     }
   }),
   getters: {},
@@ -40,6 +41,10 @@ export const useEnvStore = defineStore('env', {
         .onOk(() => {
           cb(id);
         });
+    },
+    checkMail(val) {
+      const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+      return regexExp.test(val);
     }
   },
 });

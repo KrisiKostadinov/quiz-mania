@@ -6,7 +6,16 @@
           <q-item-label class="text-h6">Вход</q-item-label>
           <q-icon size="3rem" name="login" color="primary" />
           <div class="q-gutter-y-md">
-            <q-input label="Имейл" v-model="user.credentials.email" filled>
+            <q-input
+              label="Имейл"
+              v-model="user.credentials.email"
+              filled
+              lazy-rules
+              :rules="[(val) => env.checkMail(val)]"
+            >
+              <template v-slot:error>
+                <div class="text-caption">Въведете валиден имейл адрес.</div>
+              </template>
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
@@ -32,6 +41,20 @@
           >
             <template v-slot:default>
               <div class="text-caption">Все още нямаш акаунт?</div>
+            </template>
+          </q-btn>
+        </div>
+        <div class="text-center">
+          <q-btn
+            flat
+            no-caps
+            @click="
+              env.dialogs.login = false;
+              env.dialogs.forgotPassword = true;
+            "
+          >
+            <template v-slot:default>
+              <div class="text-caption">Забравена парола?</div>
             </template>
           </q-btn>
         </div>

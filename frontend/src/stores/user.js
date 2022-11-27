@@ -8,9 +8,11 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     url: 'users',
     logoutUrl: 'users/logout',
+    forgotPasswordUrl: 'users/forgot_password',
     loggedIn: false,
     me: {},
     error: '',
+    isSendedForgotPassword: false,
     credentials: {
       email: '',
       password: '',
@@ -52,6 +54,19 @@ export const useUserStore = defineStore('user', {
             this.loggedIn = false;
             this.$reset();
             env.dialogs.login = true;
+          }
+        })
+        .catch((err) => env.te(err.message))
+        .finally(() => env.loading = false);
+    },
+    forgotPassword() {
+      env.loading = true;
+      api.post(this.forgotPasswordUrl, this.credentials)
+        .then((res) => {
+          if (res.data === 'ok') {
+            this.isSendedForgotPassword = true;
+          } else {
+            env.te(res.data);
           }
         })
         .catch((err) => env.te(err.message))
