@@ -8,6 +8,9 @@ export const useEnvStore = defineStore('env', {
       login: false,
       register: false,
       forgotPassword: false,
+      createCategory: false,
+      detailsCategory: false,
+      createQuiz: false,
     }
   }),
   getters: {},

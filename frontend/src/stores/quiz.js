@@ -7,17 +7,64 @@ const env = useEnvStore();
 export const useQuizStore = defineStore('quiz', {
   state: () => ({
     url: 'quizzes',
-    filter: '',
-    item: {
-      title: '',
-      description: '',
-      played_count: 0,
-      user_id: 1,
-      questions: []
-    },
+    privateString: 'private',
+    publicString: 'public',
+    difficultyLevels: [
+      {
+        label: 'Лесно',
+        value: 'easy'
+      },
+      {
+        label: 'Средно',
+        value: 'medium'
+      },
+      {
+        label: 'Трудно',
+        value: 'hard'
+      },
+    ],
+    statuses: [
+      {
+        label: 'Активен',
+        value: 'active'
+      },
+      {
+        label: 'Чакащ',
+        value: 'pending'
+      },
+      {
+        label: 'Отхвърлен',
+        value: 'discarded'
+      },
+    ],
+    filterTerm: '',
+    item: {},
     fetchedItems: [],
     items: []
   }),
+  getters: {
+    setInitialState: (state) => {
+      return {
+        user_id: 1,
+        questions: [],
+        password: null,
+        options: {
+          title: '',
+          description: '',
+          type: state.publicString,
+          played_count: 0,
+          categoryId: null,
+          diffcultyLevel: 'medium',
+          withTimeout: false,
+          withRandomQuestions: false,
+          withPoints: true,
+          timeInMinutes: null,
+          status: state.statuses[1].value,
+          points: 0,
+        }
+      }
+    }
+  },
   actions: {
     getItems() {
       env.loading = true;
@@ -49,6 +96,8 @@ export const useQuizStore = defineStore('quiz', {
           if (typeof res.data === 'object') {
             this.item = res.data;
             env.ts('Тестът бе създаден');
+            env.dialogs.createQuiz = false;
+            this.getItems();
           } else if (res.data === 'slug_exists') {
             env.te('Този slug вече съществъва, моля въведете друг.');
           }
@@ -62,13 +111,27 @@ export const useQuizStore = defineStore('quiz', {
         .then((res) => {
           if (res.data === 'success') {
             env.ts('Тестът бе изтрита');
-            this.getItem();
+            this.getItems();
+            this.item = this.setInitialState;
           } else if (res.data === 'invalid_id') {
             env.te('Този тест не съществува');
           }
         })
         .catch((err) => env.te(err.message))
         .finally(() => env.loading = false);
+    },
+    filter() {
+      this.items = this.fetchedItems.filter(x => {
+        return x.options.title.includes(this.filterTerm) || x.options.description.includes(this.filterTerm)
+      });
+    },
+    onUpdate() {
+      if (this.item.options.type === this.privateString) this.item.password = this.generatePassword();
+      else this.item.password = null;
+      if (!this.item.options.withTimeout) this.item.options.timeInMinutes = null;
+    },
+    generatePassword() {
+      return Date.now();
     }
   }
 });

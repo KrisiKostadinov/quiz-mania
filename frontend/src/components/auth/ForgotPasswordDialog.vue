@@ -77,6 +77,15 @@
         />
       </q-card-section>
     </q-banner>
+    <q-btn
+      class="close-button-dialog"
+      icon="close"
+      color="negative"
+      no-caps
+      round
+      fab-mini
+      v-close-popup
+    />
   </q-card>
 </template>
 

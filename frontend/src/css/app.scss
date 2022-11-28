@@ -4,7 +4,12 @@ body {
   background-color: $bg-color;
 }
 
-body * {
+.bg-color {
+  background-color: $bg-color;
+}
+
+body *,
+.text-body1 {
   font-size: large;
 
   @media (max-width: $tablet) {
@@ -16,7 +21,8 @@ body * {
 }
 
 .text-caption,
-small {
+small,
+.q-field .q-field__inner .q-field__bottom * {
   font-size: small;
 }
 
@@ -54,6 +60,10 @@ h6 {
   line-height: 2rem;
 }
 
+.q-textarea .q-field__native {
+  line-height: 2rem;
+}
+
 .q-spinner {
   position: fixed;
   left: 50%;
@@ -85,8 +95,33 @@ a {
   @media (max-width: $tablet) {
     width: 80%;
   }
+
+  .scroll-area {
+    height: 60vh;
+  }
+}
+
+.small-proxy-dialog {
+  width: 20%;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+  @media (max-width: $tablet) {
+    width: 80%;
+  }
+
+  .scroll-area {
+    height: 60vh;
+  }
 }
 
 .rounded {
   border-radius: 50%;
+}
+
+.close-button-dialog {
+  position: absolute;
+  top: 4px;
+  right: 4px;
 }

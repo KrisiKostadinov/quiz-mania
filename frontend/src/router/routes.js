@@ -1,14 +1,26 @@
 
+const initialRoutes = [
+  { path: '', component: () => import('pages/IndexPage.vue') },
+  { path: 'help', component: () => import('pages/HelpPage.vue') },
+]
+
+const categoriesRoutes = [
+  { path: 'categories', component: () => import('src/pages/categories/CategoriesPage.vue') },
+  { path: 'category/:id', component: () => import('src/pages/categories/DetailsCategoryPage.vue') },
+]
+
+const quizzesRoutes = [
+  { path: 'quiz/:slug', component: () => import('src/pages/quizzes/DetailsQuizPage.vue') },
+]
+
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'help', component: () => import('pages/HelpPage.vue') },
-      { path: 'categories', component: () => import('pages/CategoriesPage.vue') },
-      { path: '/:slug', component: () => import('pages/DetailsCategoryPage.vue') },
-      { path: 'quiz/:slug', component: () => import('pages/DetailsQuizPage.vue') },
+      ...initialRoutes,
+      ...categoriesRoutes,
+      ...quizzesRoutes
     ]
   },
 

@@ -1,15 +1,15 @@
 <template>
-  <div class="row q-col-gutter-md" v-if="props.store.items.length">
+  <div class="row q-col-gutter-md" v-if="quiz.items.length">
     <div
       class="col-12 col-sm-6 col-md-4 col-lg-3"
-      v-for="(q, index) in props.store.items"
+      v-for="(item, index) in quiz.items"
       :key="index"
     >
-      <list-view-quiz :store="props.store" :quiz="q" />
+      <list-view-quiz :item="item" />
     </div>
   </div>
   <transition
-    v-else-if="loading"
+    v-else-if="env.loading"
     appear
     appear-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
@@ -22,17 +22,19 @@
 <script>
 import { defineComponent } from "vue";
 import ListAllQuiz from "src/components/quiz/quizzes/list/ListViewQuiz.vue";
+import { useQuizStore } from "src/stores/quiz";
+import { useEnvStore } from "src/stores/env";
 
 export default defineComponent({
   name: "ListAllQuizzes",
   components: {
     "list-view-quiz": ListAllQuiz,
   },
-  props: {
-    store: Object,
-  },
-  setup(props) {
-    return { props };
+  setup() {
+    const quiz = useQuizStore();
+    const env = useEnvStore();
+    if(!quiz.items.length) quiz.getItems();
+    return { quiz, env };
   },
 });
 </script>

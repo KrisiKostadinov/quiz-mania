@@ -7,7 +7,7 @@ const env = useEnvStore();
 export const useCategoryStore = defineStore('category', {
   state: () => ({
     url: 'categories',
-    filter: '',
+    filterTerm: '',
     item: {},
     fetchedItems: [],
     items: []
@@ -40,9 +40,11 @@ export const useCategoryStore = defineStore('category', {
       env.loading = true;
       api.post(this.url, this.item)
         .then((res) => {
+          this.item = res.data;
+          env.ts('Категорията бе създадена');
+          env.dialogs.createCategory = false;
+          this.getItems();
           if (typeof res.data === 'object') {
-            this.item = res.data;
-            env.ts('Категорията бе създадена');
           } else if (res.data === 'slug_exists') {
             env.te('Този slug вече съществъва, моля въведете друг.');
           }
@@ -54,15 +56,21 @@ export const useCategoryStore = defineStore('category', {
       env.loading = true;
       api.delete(`${this.url}/${id}`)
         .then((res) => {
+          env.ts('Категорията бе изтрита');
+          this.getItems();
           if (res.data === 'success') {
-            env.ts('Категорията бе изтрита');
-            this.getItem();
           } else if (res.data === 'invalid_id') {
             env.te('Тази категория не съществува');
           }
         })
         .catch((err) => env.te(err.message))
         .finally(() => env.loading = false);
+    },
+    filter() {
+      this.items = this.fetchedItems.filter(x =>
+        x.options.title.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+        x.options.description?.toLowerCase().includes(this.filterTerm.toLowerCase())
+      );
     }
   },
 });

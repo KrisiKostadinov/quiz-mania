@@ -1,7 +1,7 @@
 {
   "name": "quiz-mania",
   "version": "0.0.1",
-  "description": "Online quiz with posibilities for creating of private and public quzzes and contests.",
+  "description": "Online quiz with posibilities for creating of private and public quizzes and contests.",
   "productName": "Quasar App",
   "author": "krisikostadinov <krisi.199898@gmail.com>",
   "private": true,
