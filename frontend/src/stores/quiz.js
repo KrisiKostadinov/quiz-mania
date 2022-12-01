@@ -56,7 +56,6 @@ export const useQuizStore = defineStore('quiz', {
           categoryId: null,
           diffcultyLevel: 'medium',
           withTimeout: false,
-          withRandomQuestions: false,
           withPoints: true,
           timeInMinutes: null,
           status: state.statuses[1].value,

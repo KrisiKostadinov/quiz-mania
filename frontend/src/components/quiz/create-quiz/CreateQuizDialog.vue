@@ -19,6 +19,15 @@
               hint="Как се казва теста?"
             />
             <q-input
+              label="Заглавие на латиница (slug)"
+              v-model="quiz.item.options.slug"
+              filled
+              hint="Това ще се показва след името на сайта."
+              @update:model-value="
+                (val) => (quiz.item.options.slug = env.onUpdateSlug(val))
+              "
+            />
+            <q-input
               type="textarea"
               label="Описание"
               v-model="quiz.item.options.description"
@@ -92,25 +101,6 @@
                 </q-item>
               </q-popup-proxy>
             </q-btn>
-            <q-separator />
-            <q-checkbox
-              v-model="quiz.item.options.withRandomQuestions"
-              label="Със собствени въпроси?"
-            />
-            <q-btn icon="quiz" class="q-ml-md" flat round fab-mini>
-              <q-popup-proxy class="small-proxy-dialog">
-                <q-item>
-                  <q-item-section>
-                    <q-item-label>
-                      Искате ли да добавите собствени въпроси в теста? В
-                      противен случай, ще се използват произволни въпроси от
-                      базата по време на теста в избраната от Вас категория,
-                      ако има такава.
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-popup-proxy>
-            </q-btn>
           </div>
           <q-card-actions align="center" class="q-pa-md">
             <q-btn
@@ -154,6 +144,7 @@ export default defineComponent({
     const category = useCategoryStore();
     const env = useEnvStore();
     if (!category.items.length) category.getItems();
+    if (!quiz.item.id) quiz.item = structuredClone(quiz.setInitialState);
     return { quiz, category, env };
   },
 });

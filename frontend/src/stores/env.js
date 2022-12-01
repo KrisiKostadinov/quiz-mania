@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Notify, Dialog } from 'quasar';
+import convert from 'cyrillic-to-latin';
 
 export const useEnvStore = defineStore('env', {
   state: () => ({
@@ -48,6 +49,13 @@ export const useEnvStore = defineStore('env', {
     checkMail(val) {
       const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
       return regexExp.test(val);
+    },
+    onUpdateSlug(cyrillic) {
+      const latin = this.convertCyrilicToLatin(cyrillic);
+      return latin.replaceAll(' ', '-').toLowerCase();
+    },
+    convertCyrilicToLatin(cyrillic) {
+      return convert(cyrillic);
     }
   },
 });

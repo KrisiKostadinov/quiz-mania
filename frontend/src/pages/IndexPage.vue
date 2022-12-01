@@ -11,13 +11,21 @@
           icon="add"
           no-caps
           @click="
-            quiz.item = quiz.setInitialState;
+            quiz.item = { options: {} };
             env.dialogs.createQuiz = true;
           "
         />
       </q-item-section>
     </q-item>
     <q-separator class="q-my-md" />
+    <q-item-section class="q-mb-md">
+      <q-input
+        label="Търсене..."
+        v-model="quiz.filterTerm"
+        @update:model-value="quiz.filter"
+        filled
+      />
+    </q-item-section>
     <list-all-quizzes />
   </q-page>
 </template>
