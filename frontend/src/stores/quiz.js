@@ -60,6 +60,7 @@ export const useQuizStore = defineStore('quiz', {
           timeInMinutes: null,
           status: state.statuses[1].value,
           points: 0,
+          question_ids: []
         }
       }
     }
@@ -95,7 +96,6 @@ export const useQuizStore = defineStore('quiz', {
           if (typeof res.data === 'object') {
             this.item = res.data;
             env.ts('Тестът бе създаден');
-            env.dialogs.createQuiz = false;
             this.getItems();
           } else if (res.data === 'slug_exists') {
             env.te('Този slug вече съществъва, моля въведете друг.');

@@ -1,7 +1,7 @@
 <template>
   <q-card class="medium-dialog">
     <q-scroll-area class="scroll-area">
-      <q-form @submit.prevent="quiz.saveItem">
+      <q-form>
         <q-card-section class="text-center">
           <q-item-label class="text-h5"> Създаване на тест </q-item-label>
           <div class="q-gutter-y-md q-pt-md">
@@ -26,6 +26,8 @@
               @update:model-value="
                 (val) => (quiz.item.options.slug = env.onUpdateSlug(val))
               "
+              lazy-rules
+              :rules="[(val) => !!val || 'Това поле е задължително!']"
             />
             <q-input
               type="textarea"
@@ -101,6 +103,24 @@
                 </q-item>
               </q-popup-proxy>
             </q-btn>
+            <q-separator />
+            <q-btn
+              v-if="quiz.item.id"
+              label="Въпроси"
+              icon="visibility"
+              color="primary"
+              no-caps
+              @click="env.dialogs.listQuestionsInQuizView = true"
+            />
+            <q-banner v-else>
+              <q-item>
+                <q-item-section>
+                  След като съхрините теста, ще можете да добавите въпроси към
+                  него.
+                </q-item-section>
+              </q-item>
+            </q-banner>
+            <q-separator />
           </div>
           <q-card-actions align="center" class="q-pa-md">
             <q-btn
@@ -109,6 +129,9 @@
               no-caps
               color="primary"
               icon="save"
+              @click="quiz.saveItem"
+              :loading="env.loading"
+              :disable="env.loading"
             />
           </q-card-actions>
         </q-card-section>
@@ -133,6 +156,7 @@ import { useCategoryStore } from "src/stores/category";
 import { useQuizStore } from "src/stores/quiz";
 import { useEnvStore } from "src/stores/env";
 import TypeSetting from "src/components/quiz/create-quiz/parts/TypeSetting.vue";
+import { useQuestionStore } from "src/stores/question";
 
 export default defineComponent({
   name: "CreateQuizDialog",
@@ -141,11 +165,12 @@ export default defineComponent({
   },
   setup() {
     const quiz = useQuizStore();
+    const question = useQuestionStore();
     const category = useCategoryStore();
     const env = useEnvStore();
     if (!category.items.length) category.getItems();
     if (!quiz.item.id) quiz.item = structuredClone(quiz.setInitialState);
-    return { quiz, category, env };
+    return { quiz, question, category, env };
   },
 });
 </script>

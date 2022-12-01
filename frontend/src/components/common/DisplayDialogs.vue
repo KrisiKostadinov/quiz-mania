@@ -17,6 +17,15 @@
   <q-dialog v-model="env.dialogs.createQuiz" :full-width="$q.screen.xs">
     <create-quiz-dialog />
   </q-dialog>
+  <q-dialog v-model="env.dialogs.createQuestion" :maximized="$q.screen.xs">
+    <create-question-dialog />
+  </q-dialog>
+  <q-dialog
+    v-model="env.dialogs.listQuestionsInQuizView"
+    :maximized="$q.screen.xs"
+  >
+    <list-questions-in-quiz-adding />
+  </q-dialog>
 </template>
 
 <script>
@@ -29,6 +38,8 @@ import ForgotPasswordDialog from "src/components/auth/ForgotPasswordDialog.vue";
 import CreateCategoryDialog from "src/components/category/create-category/CreateCategoryDialog.vue";
 import CategoryDetailsView from "src/components/category/categories/details/CategoryDetailsView.vue";
 import CreateQuizDialog from "src/components/quiz/create-quiz/CreateQuizDialog.vue";
+import CreateQuestionDialog from "src/components/question/create-question/CreateQuestionDialog.vue";
+import ListQuestionsInQuizAdding from "src/components/question/questions/list/ListQuestionsInQuizAdding.vue";
 
 export default defineComponent({
   name: "DisplayDialogs",
@@ -39,6 +50,8 @@ export default defineComponent({
     "create-category-dialog": CreateCategoryDialog,
     "category-details-view": CategoryDetailsView,
     "create-quiz-dialog": CreateQuizDialog,
+    "create-question-dialog": CreateQuestionDialog,
+    "list-questions-in-quiz-adding": ListQuestionsInQuizAdding,
   },
   setup() {
     const env = useEnvStore();

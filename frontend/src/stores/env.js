@@ -12,6 +12,8 @@ export const useEnvStore = defineStore('env', {
       createCategory: false,
       detailsCategory: false,
       createQuiz: false,
+      createQuestion: false,
+      listQuestionsInQuizView: false,
     }
   }),
   getters: {},
